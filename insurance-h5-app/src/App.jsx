@@ -9,6 +9,15 @@ import {
     AlertCircle
 } from 'lucide-react';
 
+// Poly Logo Component (Simplified "P")
+const PolyLogo = ({ size = 32 }) => (
+    <svg width={size} height={size} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="20" fill="var(--primary)" />
+        <path d="M14 10H22C27.5228 10 32 14.4772 32 20C32 25.5228 27.5228 30 22 30H18V34H14V10Z" fill="white" />
+        <circle cx="20" cy="20" r="4" fill="var(--primary)" />
+    </svg>
+);
+
 function App() {
     const [activeTab, setActiveTab] = useState('claim');
     const [showUpload, setShowUpload] = useState(false);
@@ -65,13 +74,11 @@ function App() {
     return (
         <div className="container">
             {/* Header */}
-            <header className="animate-entry" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
+            <header className="animate-entry" style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+                <PolyLogo size={40} />
                 <div>
-                    <h3 style={{ marginBottom: '4px' }}>XX物业全国统保</h3>
-                    <h1 style={{ marginBottom: 0 }}>保险AI服务</h1>
-                </div>
-                <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
-                    <Shield size={20} />
+                    <h3 style={{ marginBottom: '0', fontSize: '13px', color: 'var(--text-secondary)', letterSpacing: '1px' }}>POLY PROPERTY</h3>
+                    <h1 style={{ marginBottom: 0, fontSize: '20px', lineHeight: '1.2' }}>保利物业保险服务</h1>
                 </div>
             </header>
 

@@ -238,6 +238,15 @@
             { id: 1021, user: 'Admin', action: '配置更新', target: '风控阈值参数', time: '09:55:12', ip: '10.0.0.5', status: '核心' },
         ];
 
+        // Poly Logo (White version for dark sidebar)
+        const PolyLogo = ({ size = 24 }) => (
+            <svg width={size} height={size} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="20" cy="20" r="20" fill="white" fillOpacity="0.2" />
+                <path d="M14 10H22C27.5228 10 32 14.4772 32 20C32 25.5228 27.5228 30 22 30H18V34H14V10Z" fill="white" />
+                <circle cx="20" cy="20" r="4" fill="#333" fillOpacity="0" />
+            </svg>
+        );
+
         function App() {
             const [activeNav, setActiveNav] = useState('dashboard');
 
@@ -246,8 +255,11 @@
                     {/* Sidebar */}
                     <div className="sidebar">
                         <div className="logo">
-                            <ShieldIcon />
-                            <span>保险服务智能终端</span>
+                            <PolyLogo size={32} />
+                            <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
+                                <span style={{ fontSize: '18px', fontWeight: '700' }}>保利物业</span>
+                                <span style={{ fontSize: '11px', opacity: 0.7, fontWeight: '400', letterSpacing: '1px' }}>保险服务终端</span>
+                            </div>
                         </div>
                         <div className={`nav-item ${activeNav === 'dashboard' ? 'active' : ''}`} onClick={() => setActiveNav('dashboard')}>
                             <ActivityIcon /> 数据驾驶舱
