@@ -16,21 +16,33 @@
     <script src="https://cdn.jsdelivr.net/npm/recharts@2.12.2/umd/Recharts.min.js"></script>
 
     <style>
-        /* 复用之前的高端设计 Token */
+        /* 复用之前的高端设计 Token - 更新为 Poly Green 主题 */
         :root {
-            --primary: #1e3a8a;
-            /* Deep Royal Blue */
-            --primary-light: #eff6ff;
-            --accent: #f59e0b;
-            --success: #10b981;
-            --danger: #ef4444;
-            --bg-body: #f1f5f9;
+            /* Poly Corporate Green (Deep Forest Green) */
+            /* #1A5632 -> HSL(144, 54%, 22%) */
+            --primary: hsl(144, 55%, 25%);
+            --primary-light: hsl(144, 50%, 96%);
+
+            /* Festive Gold (Celebration, Premium) */
+            /* #D4AF37 -> HSL(46, 65%, 52%) */
+            --accent: hsl(46, 65%, 52%);
+
+            /* Creative Magenta */
+            --creative: hsl(340, 82%, 52%);
+
+            --success: hsl(150, 60%, 40%);
+            --danger: hsl(350, 80%, 55%);
+
+            --bg-body: hsl(140, 10%, 98%);
+            /* Very subtle green tint */
             --bg-card: #ffffff;
-            --text-main: #0f172a;
-            --text-secondary: #64748b;
+
+            --text-main: hsl(145, 30%, 12%);
+            --text-secondary: hsl(145, 10%, 45%);
+
             --border: #e2e8f0;
-            --radius: 8px;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --radius: 12px;
+            --shadow: 0 4px 12px -2px rgba(26, 86, 50, 0.08), 0 2px 6px -1px rgba(26, 86, 50, 0.04);
         }
 
         * {
@@ -53,12 +65,13 @@
         /* Sidebar */
         .sidebar {
             width: 260px;
-            background: #0f172a;
-            /* Slate 900 */
+            background: linear-gradient(180deg, hsl(144, 54%, 20%) 0%, hsl(144, 54%, 15%) 100%);
+            /* Dark Green Gradient */
             color: white;
             display: flex;
             flex-direction: column;
-            padding: 20px;
+            padding: 24px;
+            box-shadow: 4px 0 24px rgba(0, 0, 0, 0.05);
         }
 
         .logo {
@@ -153,18 +166,19 @@
         }
 
         .badge-success {
-            background: #dcfce7;
-            color: #166534;
+            background: hsla(150, 60%, 40%, 0.1);
+            color: var(--success);
         }
 
         .badge-warn {
-            background: #fef3c7;
-            color: #92400e;
+            background: hsla(46, 65%, 52%, 0.1);
+            color: #854d0e;
+            /* Darker Gold for text readability */
         }
 
         .badge-blue {
-            background: #dbeafe;
-            color: #1e40af;
+            background: var(--primary-light);
+            color: var(--primary);
         }
 
         /* Table */
@@ -259,7 +273,7 @@
                                 <span className="breadcrumb">最后更新: 2025-12-31 23:30 | 数据来源: 41个区域公司实时同步</span>
                             </div>
                             <div style={{ display: 'flex', gap: '12px' }}>
-                                <button className="card" style={{ padding: '8px 16px', background: '#3b82f6', color: 'white', border: 'none', cursor: 'pointer' }}>
+                                <button className="card" style={{ padding: '8px 16px', background: 'var(--primary)', color: 'white', border: 'none', cursor: 'pointer' }}>
                                     导出监管报表
                                 </button>
                             </div>
@@ -274,7 +288,7 @@
                             </div>
                             <div className="card">
                                 <div style={{ color: 'var(--text-secondary)', marginBottom: '8px' }}>已触发预付赔款 (万元)</div>
-                                <div style={{ fontSize: '28px', fontWeight: '700', color: '#f59e0b' }}>¥ 85.5</div>
+                                <div style={{ fontSize: '28px', fontWeight: '700', color: 'var(--accent)' }}>¥ 85.5</div>
                                 <div style={{ fontSize: '12px', color: 'var(--text-secondary)', marginTop: '4px' }}>平均结案周期缩短 4.5天</div>
                             </div>
                             <div className="card">
@@ -297,8 +311,10 @@
                                             <XAxis dataKey="name" axisLine={false} tickLine={false} />
                                             <YAxis axisLine={false} tickLine={false} />
                                             <Tooltip />
-                                            <Line type="monotone" dataKey="报案量" stroke="#1e3a8a" strokeWidth={3} dot={{ r: 4 }} />
-                                            <Line type="monotone" dataKey="预付金额" stroke="#f59e0b" strokeWidth={3} dot={{ r: 4 }} />
+                                            {/* Poly Green for Cases */}
+                                            <Line type="monotone" dataKey="报案量" stroke="#1A5632" strokeWidth={3} dot={{ r: 4 }} />
+                                            {/* Festive Gold for Pre-payment */}
+                                            <Line type="monotone" dataKey="预付金额" stroke="#D4AF37" strokeWidth={3} dot={{ r: 4 }} />
                                         </LineChart>
                                     </ResponsiveContainer>
                                 </div>
@@ -321,7 +337,7 @@
                                             <XAxis type="number" hide />
                                             <YAxis dataKey="name" type="category" width={80} />
                                             <Tooltip />
-                                            <Bar dataKey="val" fill="#3b82f6" radius={[0, 4, 4, 0]} barSize={20} />
+                                            <Bar dataKey="val" fill="#1A5632" radius={[0, 4, 4, 0]} barSize={20} />
                                         </BarChart>
                                     </ResponsiveContainer>
                                 </div>
