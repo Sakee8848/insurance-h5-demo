@@ -205,6 +205,17 @@
         }
 
         /* Icons placeholder (using simple ASCII or Emoji if SVG fails, but will try SVG) */
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 
@@ -249,6 +260,24 @@
 
         function App() {
             const [activeNav, setActiveNav] = useState('dashboard');
+            const [showToast, setShowToast] = useState(false);
+            const [toastMsg, setToastMsg] = useState('');
+
+            const handleExport = () => {
+                setToastMsg('正在生成监管报表 (PDF)... 下载即将开始');
+                setShowToast(true);
+                setTimeout(() => setShowToast(false), 3000);
+            };
+
+            const handleStatClick = (type) => {
+                let msg = '';
+                if (type === 'cases') msg = '正在加载本月142起案件详情...';
+                if (type === 'money') msg = '已跳转至财务预付明细账单';
+                if (type === 'security') msg = '系统安全自检完成：无异常';
+                setToastMsg(msg);
+                setShowToast(true);
+                setTimeout(() => setShowToast(false), 3000);
+            }
 
             return (
                 <div className="layout">
@@ -277,6 +306,28 @@
                         </div>
                     </div>
 
+                    {/* Toast Notification */}
+                    {showToast && (
+                        <div style={{
+                            position: 'fixed',
+                            top: '20px',
+                            right: '20px',
+                            background: 'var(--text-main)',
+                            color: 'white',
+                            padding: '12px 24px',
+                            borderRadius: '8px',
+                            boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                            zIndex: 1000,
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            animation: 'slideIn 0.3s ease'
+                        }}>
+                            <div style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--accent)' }}></div>
+                            {toastMsg}
+                        </div>
+                    )}
+
                     {/* Main Area */}
                     <div className="main">
                         <div className="header">
@@ -285,7 +336,7 @@
                                 <span className="breadcrumb">最后更新: 2025-12-31 23:30 | 数据来源: 41个区域公司实时同步</span>
                             </div>
                             <div style={{ display: 'flex', gap: '12px' }}>
-                                <button className="card" style={{ padding: '8px 16px', background: 'var(--primary)', color: 'white', border: 'none', cursor: 'pointer' }}>
+                                <button className="card" onClick={handleExport} style={{ padding: '8px 16px', background: 'var(--primary)', color: 'white', border: 'none', cursor: 'pointer', transition: 'transform 0.1s' }} onMouseDown={(e) => e.target.style.transform = 'scale(0.95)'} onMouseUp={(e) => e.target.style.transform = 'scale(1)'}>
                                     导出监管报表
                                 </button>
                             </div>
@@ -293,17 +344,17 @@
 
                         {/* Top Stats Cards */}
                         <div className="grid-3">
-                            <div className="card">
+                            <div className="card" onClick={() => handleStatClick('cases')} style={{ cursor: 'pointer', transition: 'transform 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-4px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
                                 <div style={{ color: 'var(--text-secondary)', marginBottom: '8px' }}>本月理赔案件 (件)</div>
                                 <div style={{ fontSize: '28px', fontWeight: '700' }}>142</div>
                                 <div style={{ fontSize: '12px', color: 'var(--success)', marginTop: '4px' }}>↑ 12% 环比上月</div>
                             </div>
-                            <div className="card">
+                            <div className="card" onClick={() => handleStatClick('money')} style={{ cursor: 'pointer', transition: 'transform 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-4px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
                                 <div style={{ color: 'var(--text-secondary)', marginBottom: '8px' }}>已触发预付赔款 (万元)</div>
                                 <div style={{ fontSize: '28px', fontWeight: '700', color: 'var(--accent)' }}>¥ 85.5</div>
                                 <div style={{ fontSize: '12px', color: 'var(--text-secondary)', marginTop: '4px' }}>平均结案周期缩短 4.5天</div>
                             </div>
-                            <div className="card">
+                            <div className="card" onClick={() => handleStatClick('security')} style={{ cursor: 'pointer', transition: 'transform 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-4px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
                                 <div style={{ color: 'var(--text-secondary)', marginBottom: '8px' }}>敏感数据合规性</div>
                                 <div style={{ fontSize: '28px', fontWeight: '700', color: '#10b981' }}>100%</div>
                                 <div style={{ fontSize: '12px', color: 'var(--text-secondary)', marginTop: '4px' }}>今日拦截异常访问 0 次</div>
