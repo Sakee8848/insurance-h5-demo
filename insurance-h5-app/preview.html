@@ -20,29 +20,42 @@
     <style>
         /* Global Design Tokens & Reset */
         :root {
-            /* HSL Color Palette - Premium Corporate & Trust */
-            --primary-h: 215;
-            --primary-s: 90%;
-            --primary-l: 36%;
-            /* Deep Blue */
+            /* HSL Color Palette - Poly Property Green & Festive New Year */
+
+            /* Poly Corporate Green (Deep Forest Green) */
+            /* #1A5632 -> HSL(144, 54%, 22%) */
+            --primary-h: 144;
+            --primary-s: 55%;
+            --primary-l: 25%;
             --primary: hsl(var(--primary-h), var(--primary-s), var(--primary-l));
 
-            --accent-h: 36;
-            --accent-s: 100%;
-            --accent-l: 50%;
-            /* Gold */
+            /* Festive Gold (Celebration, Premium) */
+            /* #D4AF37 -> HSL(46, 65%, 52%) */
+            --accent-h: 46;
+            --accent-s: 65%;
+            --accent-l: 52%;
             --accent: hsl(var(--accent-h), var(--accent-s), var(--accent-l));
+
+            /* Creative Magenta (Modernity, AI, Vitality from Horse image) */
+            /* #E91E63 -> HSL(340, 82%, 52%) */
+            --creative-h: 340;
+            --creative-s: 82%;
+            --creative-l: 52%;
+            --creative: hsl(var(--creative-h), var(--creative-s), var(--creative-l));
 
             --success: hsl(150, 60%, 40%);
             --warning: hsl(36, 100%, 50%);
             --danger: hsl(350, 80%, 55%);
 
-            --bg-body: hsl(210, 20%, 98%);
+            /* Backgrounds - Keeping it Clean & Corporate */
+            --bg-body: hsl(140, 10%, 98%);
+            /* Very subtle hint of green in grey */
             --bg-card: #ffffff;
 
-            --text-main: hsl(215, 40%, 15%);
-            --text-secondary: hsl(215, 20%, 45%);
-            --text-muted: hsl(215, 10%, 65%);
+            --text-main: hsl(145, 30%, 12%);
+            /* Dark green-grey instead of pure black */
+            --text-secondary: hsl(145, 10%, 45%);
+            --text-muted: hsl(145, 5%, 65%);
 
             /* Spacing */
             --space-xs: 4px;
@@ -54,13 +67,14 @@
             /* Radius */
             --radius-sm: 8px;
             --radius-md: 12px;
-            --radius-lg: 20px;
+            --radius-lg: 16px;
+            /* Slightly softer */
             --radius-full: 9999px;
 
             /* Shadows - Soft & Modern */
-            --shadow-sm: 0 2px 8px -2px rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
-            --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            --shadow-sm: 0 2px 8px -2px rgba(26, 86, 50, 0.05);
+            --shadow-md: 0 4px 12px -2px rgba(26, 86, 50, 0.08), 0 2px 6px -1px rgba(26, 86, 50, 0.04);
+            --shadow-lg: 0 10px 25px -5px rgba(26, 86, 50, 0.1), 0 8px 10px -6px rgba(26, 86, 50, 0.01);
             --shadow-colored: 0 10px 25px -5px hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.25);
 
             /* Animation */
@@ -160,7 +174,7 @@
 
         .btn-primary {
             background: var(--primary);
-            background: linear-gradient(135deg, hsl(215, 90%, 40%), hsl(215, 90%, 32%));
+            background: linear-gradient(135deg, hsl(144, 60%, 30%), hsl(144, 60%, 20%));
             color: white;
             box-shadow: var(--shadow-colored);
         }
@@ -441,7 +455,9 @@
                             </div>
 
                             {/* Pre-payment Feature Highlight */}
-                            <div className="card" style={{ background: 'linear-gradient(135deg, #1e3a8a 0%, #172554 100%)', color: 'white' }}>
+                            <div className="card" style={{ background: 'linear-gradient(135deg, hsl(144, 60%, 25%) 0%, hsl(144, 60%, 15%) 100%)', color: 'white', position: 'relative', overflow: 'hidden' }}>
+                                {/* Decorative Circle */}
+                                <div style={{ position: 'absolute', top: '-20px', right: '-20px', width: '100px', height: '100px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--accent), var(--creative))', opacity: 0.2, filter: 'blur(20px)' }}></div>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                                     <div>
                                         <h2 style={{ color: 'white' }}>预付赔款服务</h2>

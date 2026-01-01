@@ -150,7 +150,9 @@ function App() {
                     </div>
 
                     {/* Pre-payment Feature Highlight */}
-                    <div className="card" style={{ background: 'linear-gradient(135deg, #1e3a8a 0%, #172554 100%)', color: 'white' }}>
+                    <div className="card" style={{ background: 'linear-gradient(135deg, hsl(144, 60%, 25%) 0%, hsl(144, 60%, 15%) 100%)', color: 'white', position: 'relative', overflow: 'hidden' }}>
+                        {/* Decorative Circle */}
+                        <div style={{ position: 'absolute', top: '-20px', right: '-20px', width: '100px', height: '100px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--accent), var(--creative))', opacity: 0.2, filter: 'blur(20px)' }}></div>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                             <div>
                                 <h2 style={{ color: 'white' }}>预付赔款服务</h2>
