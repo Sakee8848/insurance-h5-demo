@@ -332,116 +332,179 @@
                     <div className="main">
                         <div className="header">
                             <div>
-                                <h1 style={{ margin: 0, fontSize: '24px' }}>全域风险监控中心</h1>
+                                <h1 style={{ margin: 0, fontSize: '24px' }}>
+                                    {activeNav === 'dashboard' ? '全域风险监控中心' : (activeNav === 'audit' ? '全链路安全审计日志' : '智能风险分析报告')}
+                                </h1>
                                 <span className="breadcrumb">最后更新: 2025-12-31 23:30 | 数据来源: 41个区域公司实时同步</span>
                             </div>
                             <div style={{ display: 'flex', gap: '12px' }}>
                                 <button className="card" onClick={handleExport} style={{ padding: '8px 16px', background: 'var(--primary)', color: 'white', border: 'none', cursor: 'pointer', transition: 'transform 0.1s' }} onMouseDown={(e) => e.target.style.transform = 'scale(0.95)'} onMouseUp={(e) => e.target.style.transform = 'scale(1)'}>
-                                    导出监管报表
+                                    {activeNav === 'reports' ? '生成新报告' : '导出监管报表'}
                                 </button>
                             </div>
                         </div>
 
-                        {/* Top Stats Cards */}
-                        <div className="grid-3">
-                            <div className="card" onClick={() => handleStatClick('cases')} style={{ cursor: 'pointer', transition: 'transform 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-4px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
-                                <div style={{ color: 'var(--text-secondary)', marginBottom: '8px' }}>本月理赔案件 (件)</div>
-                                <div style={{ fontSize: '28px', fontWeight: '700' }}>142</div>
-                                <div style={{ fontSize: '12px', color: 'var(--success)', marginTop: '4px' }}>↑ 12% 环比上月</div>
-                            </div>
-                            <div className="card" onClick={() => handleStatClick('money')} style={{ cursor: 'pointer', transition: 'transform 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-4px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
-                                <div style={{ color: 'var(--text-secondary)', marginBottom: '8px' }}>已触发预付赔款 (万元)</div>
-                                <div style={{ fontSize: '28px', fontWeight: '700', color: 'var(--accent)' }}>¥ 85.5</div>
-                                <div style={{ fontSize: '12px', color: 'var(--text-secondary)', marginTop: '4px' }}>平均结案周期缩短 4.5天</div>
-                            </div>
-                            <div className="card" onClick={() => handleStatClick('security')} style={{ cursor: 'pointer', transition: 'transform 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-4px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
-                                <div style={{ color: 'var(--text-secondary)', marginBottom: '8px' }}>敏感数据合规性</div>
-                                <div style={{ fontSize: '28px', fontWeight: '700', color: '#10b981' }}>100%</div>
-                                <div style={{ fontSize: '12px', color: 'var(--text-secondary)', marginTop: '4px' }}>今日拦截异常访问 0 次</div>
-                            </div>
-                        </div>
+                        {/* CONTENT: DASHBOARD */}
+                        {activeNav === 'dashboard' && (
+                            <>
+                                {/* Top Stats Cards */}
+                                <div className="grid-3">
+                                    <div className="card" onClick={() => handleStatClick('cases')} style={{ cursor: 'pointer', transition: 'transform 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-4px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
+                                        <div style={{ color: 'var(--text-secondary)', marginBottom: '8px' }}>本月理赔案件 (件)</div>
+                                        <div style={{ fontSize: '28px', fontWeight: '700' }}>142</div>
+                                        <div style={{ fontSize: '12px', color: 'var(--success)', marginTop: '4px' }}>↑ 12% 环比上月</div>
+                                    </div>
+                                    <div className="card" onClick={() => handleStatClick('money')} style={{ cursor: 'pointer', transition: 'transform 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-4px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
+                                        <div style={{ color: 'var(--text-secondary)', marginBottom: '8px' }}>已触发预付赔款 (万元)</div>
+                                        <div style={{ fontSize: '28px', fontWeight: '700', color: 'var(--accent)' }}>¥ 85.5</div>
+                                        <div style={{ fontSize: '12px', color: 'var(--text-secondary)', marginTop: '4px' }}>平均结案周期缩短 4.5天</div>
+                                    </div>
+                                    <div className="card" onClick={() => handleStatClick('security')} style={{ cursor: 'pointer', transition: 'transform 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-4px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
+                                        <div style={{ color: 'var(--text-secondary)', marginBottom: '8px' }}>敏感数据合规性</div>
+                                        <div style={{ fontSize: '28px', fontWeight: '700', color: '#10b981' }}>100%</div>
+                                        <div style={{ fontSize: '12px', color: 'var(--text-secondary)', marginTop: '4px' }}>今日拦截异常访问 0 次</div>
+                                    </div>
+                                </div>
 
-                        {/* Charts Area */}
-                        <div className="grid-2">
+                                {/* Charts Area */}
+                                <div className="grid-2">
+                                    <div className="card">
+                                        <div className="card-header">
+                                            <div className="card-title">区域出险趋势 & 预付金额</div>
+                                        </div>
+                                        <div style={{ height: '300px', width: '100%' }}>
+                                            <ResponsiveContainer width="100%" height="100%">
+                                                <LineChart data={riskData}>
+                                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+                                                    <XAxis dataKey="name" axisLine={false} tickLine={false} />
+                                                    <YAxis axisLine={false} tickLine={false} />
+                                                    <Tooltip />
+                                                    <Line type="monotone" dataKey="报案量" stroke="#1A5632" strokeWidth={3} dot={{ r: 4 }} />
+                                                    <Line type="monotone" dataKey="预付金额" stroke="#D4AF37" strokeWidth={3} dot={{ r: 4 }} />
+                                                </LineChart>
+                                            </ResponsiveContainer>
+                                        </div>
+                                    </div>
+
+                                    <div className="card">
+                                        <div className="card-header">
+                                            <div className="card-title">高频风险类型分布</div>
+                                        </div>
+                                        <div style={{ height: '300px' }}>
+                                            <ResponsiveContainer width="100%" height="100%">
+                                                <BarChart data={[
+                                                    { name: '水管爆裂', val: 45 },
+                                                    { name: '高空坠物', val: 30 },
+                                                    { name: '电梯故障', val: 15 },
+                                                    { name: '其他', val: 10 }
+                                                ]} layout="vertical">
+                                                    <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#e2e8f0" />
+                                                    <XAxis type="number" hide />
+                                                    <YAxis dataKey="name" type="category" width={80} />
+                                                    <Tooltip />
+                                                    <Bar dataKey="val" fill="#1A5632" radius={[0, 4, 4, 0]} barSize={20} />
+                                                </BarChart>
+                                            </ResponsiveContainer>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Audit Log Table */}
+                                <div className="card">
+                                    <div className="card-header">
+                                        <div className="card-title">实时安全审计日志 (最近操作)</div>
+                                        <span className="badge badge-blue">监控中</span>
+                                    </div>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>操作时间</th>
+                                                <th>用户角色</th>
+                                                <th>操作类型</th>
+                                                <th>访问对象</th>
+                                                <th>IP地址</th>
+                                                <th>安全等级</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {auditLogs.map(log => (
+                                                <tr key={log.id}>
+                                                    <td style={{ fontFamily: 'monospace' }}>{log.time}</td>
+                                                    <td>{log.user}</td>
+                                                    <td>{log.action}</td>
+                                                    <td>{log.target}</td>
+                                                    <td style={{ fontFamily: 'monospace', color: '#64748b' }}>{log.ip}</td>
+                                                    <td>
+                                                        <span className={`badge ${log.status === '敏感' ? 'badge-warn' : (log.status === '核心' ? 'badge-blue' : 'badge-success')}`}>
+                                                            {log.status}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </>
+                        )}
+
+                        {/* CONTENT: AUDIT LOGS */}
+                        {activeNav === 'audit' && (
                             <div className="card">
                                 <div className="card-header">
-                                    <div className="card-title">区域出险趋势 & 预付金额</div>
+                                    <div className="card-title">完整审计日志 (最近 30 天)</div>
+                                    <div style={{ display: 'flex', gap: '8px' }}>
+                                        <input type="text" placeholder="搜索用户/IP..." style={{ padding: '8px', border: '1px solid #ddd', borderRadius: '4px' }} />
+                                        <button className="badge badge-blue" style={{ border: 'none', cursor: 'pointer' }}>查询</button>
+                                    </div>
                                 </div>
-                                <div style={{ height: '300px', width: '100%' }}>
-                                    <ResponsiveContainer width="100%" height="100%">
-                                        <LineChart data={riskData}>
-                                            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-                                            <XAxis dataKey="name" axisLine={false} tickLine={false} />
-                                            <YAxis axisLine={false} tickLine={false} />
-                                            <Tooltip />
-                                            {/* Poly Green for Cases */}
-                                            <Line type="monotone" dataKey="报案量" stroke="#1A5632" strokeWidth={3} dot={{ r: 4 }} />
-                                            {/* Festive Gold for Pre-payment */}
-                                            <Line type="monotone" dataKey="预付金额" stroke="#D4AF37" strokeWidth={3} dot={{ r: 4 }} />
-                                        </LineChart>
-                                    </ResponsiveContainer>
-                                </div>
+                                <table style={{ width: '100%' }}>
+                                    <thead>
+                                        <tr><th style={{ width: '60px' }}>ID</th><th>时间</th><th>用户</th><th>角色</th><th>操作</th><th>对象</th><th>Risk Score</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        {[...auditLogs, ...auditLogs, ...auditLogs].map((log, idx) => (
+                                            <tr key={idx}>
+                                                <td style={{ fontFamily: 'monospace', color: '#64748b' }}>#{log.id - idx}</td>
+                                                <td>2024-01-02 {log.time}</td>
+                                                <td>{log.user.split(' ')[0]}</td>
+                                                <td><span className="badge" style={{ background: '#f1f5f9' }}>管理员</span></td>
+                                                <td>{log.action}</td>
+                                                <td>{log.target}</td>
+                                                <td>
+                                                    <div style={{ width: '100%', height: '6px', background: '#eee', borderRadius: '4px', overflow: 'hidden' }}>
+                                                        <div style={{ width: Math.random() * 60 + '%', height: '100%', background: log.status === '敏感' ? 'var(--danger)' : 'var(--success)' }}></div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
                             </div>
+                        )}
 
-                            <div className="card">
-                                <div className="card-header">
-                                    <div className="card-title">高频风险类型分布</div>
-                                </div>
-                                <div style={{ height: '300px' }}>
-                                    {/* Placeholder for a Bar Chart or Pie Chart */}
-                                    <ResponsiveContainer width="100%" height="100%">
-                                        <BarChart data={[
-                                            { name: '水管爆裂', val: 45 },
-                                            { name: '高空坠物', val: 30 },
-                                            { name: '电梯故障', val: 15 },
-                                            { name: '其他', val: 10 }
-                                        ]} layout="vertical">
-                                            <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#e2e8f0" />
-                                            <XAxis type="number" hide />
-                                            <YAxis dataKey="name" type="category" width={80} />
-                                            <Tooltip />
-                                            <Bar dataKey="val" fill="#1A5632" radius={[0, 4, 4, 0]} barSize={20} />
-                                        </BarChart>
-                                    </ResponsiveContainer>
-                                </div>
+                        {/* CONTENT: REPORTS */}
+                        {activeNav === 'reports' && (
+                            <div className="grid-2" style={{ gridTemplateColumns: '1fr 1fr' }}>
+                                {[1, 2, 3, 4].map(i => (
+                                    <div key={i} className="card" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
+                                            <div style={{ width: 48, height: 48, background: '#f1f5f9', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                                <FileTextIcon />
+                                            </div>
+                                            <span className="badge badge-success">已生成</span>
+                                        </div>
+                                        <div>
+                                            <h3 style={{ margin: '0 0 8px 0', fontSize: '18px' }}>2024年度 Q{i} 物业风险分析报告</h3>
+                                            <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '14px' }}>包含全区出险热力图、高频事故分析及整改建议。</p>
+                                        </div>
+                                        <div style={{ marginTop: 'auto', paddingTop: '16px', borderTop: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', fontSize: '13px', color: 'var(--text-secondary)' }}>
+                                            <span>PDF · 12.5 MB</span>
+                                            <span style={{ color: 'var(--primary)', cursor: 'pointer', fontWeight: '600' }}>点击预览 &rarr;</span>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
-                        </div>
-
-                        {/* Audit Log Table */}
-                        <div className="card">
-                            <div className="card-header">
-                                <div className="card-title">实时安全审计日志 (最近操作)</div>
-                                <span className="badge badge-blue">监控中</span>
-                            </div>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>操作时间</th>
-                                        <th>用户角色</th>
-                                        <th>操作类型</th>
-                                        <th>访问对象</th>
-                                        <th>IP地址</th>
-                                        <th>安全等级</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {auditLogs.map(log => (
-                                        <tr key={log.id}>
-                                            <td style={{ fontFamily: 'monospace' }}>{log.time}</td>
-                                            <td>{log.user}</td>
-                                            <td>{log.action}</td>
-                                            <td>{log.target}</td>
-                                            <td style={{ fontFamily: 'monospace', color: '#64748b' }}>{log.ip}</td>
-                                            <td>
-                                                <span className={`badge ${log.status === '敏感' ? 'badge-warn' : (log.status === '核心' ? 'badge-blue' : 'badge-success')}`}>
-                                                    {log.status}
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
+                        )}
                     </div>
                 </div>
             );
