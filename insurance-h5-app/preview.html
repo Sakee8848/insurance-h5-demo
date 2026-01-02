@@ -627,148 +627,144 @@
                         </main>
                     )}
 
-                </div>
-            )
-        }
+                    {/* Tab Content: Policies */}
+                    {
+                        activeTab === 'policies' && (
+                            <div className="animate-entry">
+                                <div className="card" onClick={toggleProject} style={{ background: 'linear-gradient(to right, #1A5632, #0e3b20)', color: 'white', cursor: 'pointer' }}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
+                                        <div>
+                                            <div style={{ fontSize: '12px', opacity: 0.8 }}>当前项目 (点击切换模拟)</div>
+                                            <div style={{ fontSize: '18px', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                                {currentProject.name} <ChevronRight size={16} color="white" />
+                                            </div>
+                                        </div>
+                                        <div style={{ padding: '4px 8px', background: 'rgba(255,255,255,0.2)', borderRadius: '4px', fontSize: '12px' }}>
+                                            保障中
+                                        </div>
+                                    </div>
+                                    <div style={{ display: 'flex', gap: '24px' }}>
+                                        <div>
+                                            <div style={{ fontSize: '12px', opacity: 0.7 }}>总保额 (万元)</div>
+                                            <div style={{ fontSize: '20px', fontWeight: 'bold' }}>{currentProject.totalInsured}</div>
+                                        </div>
+                                        <div>
+                                            <div style={{ fontSize: '12px', opacity: 0.7 }}>剩余天数</div>
+                                            <div style={{ fontSize: '20px', fontWeight: 'bold' }}>{currentProject.daysLeft} <span style={{ fontSize: '12px', fontWeight: 'normal' }}>天</span></div>
+                                        </div>
+                                    </div>
+                                </div>
 
-        {/* Tab Content: Policies */ }
-        {
-            activeTab === 'policies' && (
-                <div className="animate-entry">
-                    <div className="card" onClick={toggleProject} style={{ background: 'linear-gradient(to right, #1A5632, #0e3b20)', color: 'white', cursor: 'pointer' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
-                            <div>
-                                <div style={{ fontSize: '12px', opacity: 0.8 }}>当前项目 (点击切换模拟)</div>
-                                <div style={{ fontSize: '18px', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                                    {currentProject.name} <ChevronRight size={16} color="white" />
+                                <h3 style={{ margin: '16px 0 12px 0', fontSize: '16px' }}>生效中的保单</h3>
+
+                                {currentProject.policies.map((policy, idx) => (
+                                    <div className="card" key={idx}>
+                                        <div style={{ borderBottom: '1px solid #eee', paddingBottom: '12px', marginBottom: '12px', display: 'flex', justifyContent: 'space-between' }}>
+                                            <div style={{ fontWeight: '600' }}>{policy.name}</div>
+                                            <span style={{ color: 'var(--primary)', fontSize: '12px', background: '#f0fdf4', padding: '2px 8px', borderRadius: '4px' }}>{policy.type}</span>
+                                        </div>
+                                        <div style={{ fontSize: '13px', color: '#64748b', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                                <span>保单号：</span>
+                                                <span style={{ fontFamily: 'monospace', color: '#333' }}>{policy.no}</span>
+                                            </div>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                                <span>理赔限额：</span>
+                                                <span style={{ color: '#333' }}>{policy.limit}</span>
+                                            </div>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                                <span>保险期限：</span>
+                                                <span style={{ color: '#333' }}>2025.01.01 - 2025.12.31</span>
+                                            </div>
+                                        </div>
+                                        <div style={{ marginTop: '16px', display: 'flex', gap: '12px' }}>
+                                            <button style={{ flex: 1, padding: '8px', border: '1px solid #ddd', background: 'white', borderRadius: '6px', color: '#666', fontSize: '13px' }}>条款详情</button>
+                                            <button style={{ flex: 1, padding: '8px', border: '1px solid var(--primary)', background: 'white', borderRadius: '6px', color: 'var(--primary)', fontSize: '13px' }}>下载电子保单</button>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )
+                    }
+
+                    {/* Notifications View */}
+                    {
+                        activeTab === 'notifications' && (
+                            <div className="animate-entry" style={{ paddingBottom: '80px' }}>
+                                <div className="header" style={{ position: 'sticky', top: 0, zIndex: 10 }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                        <Bell size={20} color="var(--primary)" />
+                                        <h1 style={{ fontSize: '18px', margin: 0 }}>风险警示与通知</h1>
+                                    </div>
+                                    <div style={{ fontSize: '12px', color: '#64748b' }}>来自: 北京区域物业总控中心</div>
+                                </div>
+
+                                <div style={{ padding: '0 16px 16px 16px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                                    <div className="card" style={{ borderLeft: '4px solid var(--accent)' }}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                                            <span className="badge badge-warn">风险预警</span>
+                                            <span style={{ fontSize: '12px', color: '#64748b' }}>10分钟前</span>
+                                        </div>
+                                        <h3 style={{ margin: '0 0 8px 0', fontSize: '16px' }}>关于开展节前消防安全专项检查的通知</h3>
+                                        <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>
+                                            接集团通知，请各项目于本周五前完成地下室、电梯机房堆积物清理，重点排查电动车违规停放问题。
+                                        </p>
+                                    </div>
+
+                                    <div className="card" style={{ borderLeft: '4px solid var(--primary)' }}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                                            <span className="badge badge-success">政策更新</span>
+                                            <span style={{ fontSize: '12px', color: '#64748b' }}>昨天</span>
+                                        </div>
+                                        <h3 style={{ margin: '0 0 8px 0', fontSize: '16px' }}>公众责任险理赔流程优化说明</h3>
+                                        <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>
+                                            自2026年1月1日起，小额案件（2000元以下）可使用“一键极速赔”通道，无需现场查勘。
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                            <div style={{ padding: '4px 8px', background: 'rgba(255,255,255,0.2)', borderRadius: '4px', fontSize: '12px' }}>
-                                保障中
-                            </div>
+                        )
+                    }
+
+                    {/* Bottom Nav */}
+                    <nav style={{ position: 'fixed', bottom: 0, left: 0, right: 0, background: 'white', borderTop: '1px solid #eee', padding: '12px 24px', display: 'flex', justifyContent: 'space-around', paddingBottom: 'calc(12px + env(safe-area-inset-bottom))', zIndex: 100 }}>
+                        <div onClick={() => setActiveTab('claim')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', color: activeTab === 'claim' ? 'var(--primary)' : 'var(--text-muted)' }}>
+                            <Shield size={20} />
+                            <span style={{ fontSize: '10px', fontWeight: '600' }}>理赔</span>
                         </div>
-                        <div style={{ display: 'flex', gap: '24px' }}>
-                            <div>
-                                <div style={{ fontSize: '12px', opacity: 0.7 }}>总保额 (万元)</div>
-                                <div style={{ fontSize: '20px', fontWeight: 'bold' }}>{currentProject.totalInsured}</div>
-                            </div>
-                            <div>
-                                <div style={{ fontSize: '12px', opacity: 0.7 }}>剩余天数</div>
-                                <div style={{ fontSize: '20px', fontWeight: 'bold' }}>{currentProject.daysLeft} <span style={{ fontSize: '12px', fontWeight: 'normal' }}>天</span></div>
-                            </div>
+                        <div onClick={() => setActiveTab('policies')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', color: activeTab === 'policies' ? 'var(--primary)' : 'var(--text-muted)' }}>
+                            <FileText size={20} />
+                            <span style={{ fontSize: '10px', fontWeight: '500' }}>保单</span>
                         </div>
-                    </div>
-
-                    <h3 style={{ margin: '16px 0 12px 0', fontSize: '16px' }}>生效中的保单</h3>
-
-                    {currentProject.policies.map((policy, idx) => (
-                        <div className="card" key={idx}>
-                            <div style={{ borderBottom: '1px solid #eee', paddingBottom: '12px', marginBottom: '12px', display: 'flex', justifyContent: 'space-between' }}>
-                                <div style={{ fontWeight: '600' }}>{policy.name}</div>
-                                <span style={{ color: 'var(--primary)', fontSize: '12px', background: '#f0fdf4', padding: '2px 8px', borderRadius: '4px' }}>{policy.type}</span>
-                            </div>
-                            <div style={{ fontSize: '13px', color: '#64748b', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                    <span>保单号：</span>
-                                    <span style={{ fontFamily: 'monospace', color: '#333' }}>{policy.no}</span>
-                                </div>
-                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                    <span>理赔限额：</span>
-                                    <span style={{ color: '#333' }}>{policy.limit}</span>
-                                </div>
-                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                    <span>保险期限：</span>
-                                    <span style={{ color: '#333' }}>2025.01.01 - 2025.12.31</span>
-                                </div>
-                            </div>
-                            <div style={{ marginTop: '16px', display: 'flex', gap: '12px' }}>
-                                <button style={{ flex: 1, padding: '8px', border: '1px solid #ddd', background: 'white', borderRadius: '6px', color: '#666', fontSize: '13px' }}>条款详情</button>
-                                <button style={{ flex: 1, padding: '8px', border: '1px solid var(--primary)', background: 'white', borderRadius: '6px', color: 'var(--primary)', fontSize: '13px' }}>下载电子保单</button>
-                            </div>
+                        <div onClick={() => setActiveTab('notifications')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', color: activeTab === 'notifications' ? 'var(--primary)' : 'var(--text-muted)' }}>
+                            <Bell size={20} />
+                            <span style={{ fontSize: '10px', fontWeight: '500' }}>通知</span>
                         </div>
-                    ))}
-                </div>
-            )
-        }
+                    </nav>
 
-        {/* Notifications View */ }
-        {
-            activeTab === 'notifications' && (
-                <div className="animate-entry" style={{ paddingBottom: '80px' }}>
-                    <div className="header" style={{ position: 'sticky', top: 0, zIndex: 10 }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <Bell size={20} color="var(--primary)" />
-                            <h1 style={{ fontSize: '18px', margin: 0 }}>风险警示与通知</h1>
-                        </div>
-                        <div style={{ fontSize: '12px', color: '#64748b' }}>来自: 北京区域物业总控中心</div>
-                    </div>
+                    {/* Upload Overlay Modal */}
+                    {
+                        showUpload && (
+                            <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.8)', zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
+                                <div className="card animate-entry" style={{ width: '100%', maxWidth: '400px', margin: 0, position: 'relative', overflow: 'hidden' }}>
+                                    <button onClick={resetUpload} style={{ position: 'absolute', top: '10px', right: '10px', background: 'none', border: 'none', fontSize: '24px', color: '#666' }}>×</button>
 
-                    <div style={{ padding: '0 16px 16px 16px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                        <div className="card" style={{ borderLeft: '4px solid var(--accent)' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                                <span className="badge badge-warn">风险预警</span>
-                                <span style={{ fontSize: '12px', color: '#64748b' }}>10分钟前</span>
-                            </div>
-                            <h3 style={{ margin: '0 0 8px 0', fontSize: '16px' }}>关于开展节前消防安全专项检查的通知</h3>
-                            <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>
-                                接集团通知，请各项目于本周五前完成地下室、电梯机房堆积物清理，重点排查电动车违规停放问题。
-                            </p>
-                        </div>
+                                    <h2 style={{ textAlign: 'center', marginBottom: '24px' }}>AI 智能识图</h2>
 
-                        <div className="card" style={{ borderLeft: '4px solid var(--primary)' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                                <span className="badge badge-success">政策更新</span>
-                                <span style={{ fontSize: '12px', color: '#64748b' }}>昨天</span>
-                            </div>
-                            <h3 style={{ margin: '0 0 8px 0', fontSize: '16px' }}>公众责任险理赔流程优化说明</h3>
-                            <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>
-                                自2026年1月1日起，小额案件（2000元以下）可使用“一键极速赔”通道，无需现场查勘。
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            )
-        }
+                                    <div style={{ height: '200px', background: '#f1f5f9', borderRadius: '12px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: '2px dashed #cbd5e1', position: 'relative', overflow: 'hidden' }} onClick={handleScanSim}>
 
-        {/* Bottom Nav */ }
-        <nav style={{ position: 'fixed', bottom: 0, left: 0, right: 0, background: 'white', borderTop: '1px solid #eee', padding: '12px 24px', display: 'flex', justifyContent: 'space-around', paddingBottom: 'calc(12px + env(safe-area-inset-bottom))', zIndex: 100 }}>
-            <div onClick={() => setActiveTab('claim')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', color: activeTab === 'claim' ? 'var(--primary)' : 'var(--text-muted)' }}>
-                <Shield size={20} />
-                <span style={{ fontSize: '10px', fontWeight: '600' }}>理赔</span>
-            </div>
-            <div onClick={() => setActiveTab('policies')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', color: activeTab === 'policies' ? 'var(--primary)' : 'var(--text-muted)' }}>
-                <FileText size={20} />
-                <span style={{ fontSize: '10px', fontWeight: '500' }}>保单</span>
-            </div>
-            <div onClick={() => setActiveTab('notifications')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', color: activeTab === 'notifications' ? 'var(--primary)' : 'var(--text-muted)' }}>
-                <Bell size={20} />
-                <span style={{ fontSize: '10px', fontWeight: '500' }}>通知</span>
-            </div>
-        </nav>
+                                        {uploadState === 'idle' && (
+                                            <>
+                                                <Camera size={48} color="#94a3b8" />
+                                                <p style={{ color: '#64748b', fontSize: '14px', marginTop: '12px' }}>点击拍摄 / 上传文件</p>
+                                            </>
+                                        )}
 
-        {/* Upload Overlay Modal */ }
-        {
-            showUpload && (
-                <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.8)', zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
-                    <div className="card animate-entry" style={{ width: '100%', maxWidth: '400px', margin: 0, position: 'relative', overflow: 'hidden' }}>
-                        <button onClick={resetUpload} style={{ position: 'absolute', top: '10px', right: '10px', background: 'none', border: 'none', fontSize: '24px', color: '#666' }}>×</button>
-
-                        <h2 style={{ textAlign: 'center', marginBottom: '24px' }}>AI 智能识图</h2>
-
-                        <div style={{ height: '200px', background: '#f1f5f9', borderRadius: '12px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: '2px dashed #cbd5e1', position: 'relative', overflow: 'hidden' }} onClick={handleScanSim}>
-
-                            {uploadState === 'idle' && (
-                                <>
-                                    <Camera size={48} color="#94a3b8" />
-                                    <p style={{ color: '#64748b', fontSize: '14px', marginTop: '12px' }}>点击拍摄 / 上传文件</p>
-                                </>
-                            )}
-
-                            {uploadState === 'scanning' && (
-                                <>
-                                    <div style={{ width: '100%', height: '100%', background: 'url(https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=400) center/cover' }}></div>
-                                    <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: 'var(--accent)', boxShadow: '0 0 15px var(--accent)', animation: 'scan 1.5s infinite ease-in-out', top: '50%' }}></div>
-                                    <style>{`
+                                        {uploadState === 'scanning' && (
+                                            <>
+                                                <div style={{ width: '100%', height: '100%', background: 'url(https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=400) center/cover' }}></div>
+                                                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: 'var(--accent)', boxShadow: '0 0 15px var(--accent)', animation: 'scan 1.5s infinite ease-in-out', top: '50%' }}></div>
+                                                <style>{`
                                                 @keyframes scan {
                                                     0% { top: 0%; opacity: 0; }
                                                     20% { opacity: 1; }
@@ -776,41 +772,41 @@
                                                     100% { top: 100%; opacity: 0; }
                                                 }
                                             `}</style>
-                                    <div style={{ position: 'absolute', bottom: '10px', left: 0, right: 0, textAlign: 'center', color: 'white', fontWeight: '600', textShadow: '0 1px 2px rgba(0,0,0,0.5)' }}>
-                                        AI 正在识别要素...
-                                    </div>
-                                </>
-                            )}
+                                                <div style={{ position: 'absolute', bottom: '10px', left: 0, right: 0, textAlign: 'center', color: 'white', fontWeight: '600', textShadow: '0 1px 2px rgba(0,0,0,0.5)' }}>
+                                                    AI 正在识别要素...
+                                                </div>
+                                            </>
+                                        )}
 
-                            {uploadState === 'result' && (
-                                <div style={{ width: '100%', height: '100%', background: 'url(https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=400) center/cover' }}>
-                                    <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'rgba(255,255,255,0.95)', padding: '16px', borderRadius: '12px 12px 0 0' }}>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                                            <div style={{ background: 'var(--success)', padding: '4px', borderRadius: '50%' }}><Shield size={12} color="white" /></div>
-                                            <span style={{ fontWeight: '700', color: 'var(--success)' }}>识别成功：医疗发票</span>
-                                        </div>
-                                        <div style={{ fontSize: '13px', color: '#333' }}>
-                                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                                                <span>发票金额：</span>
-                                                <strong>¥ 800.00</strong>
+                                        {uploadState === 'result' && (
+                                            <div style={{ width: '100%', height: '100%', background: 'url(https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=400) center/cover' }}>
+                                                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'rgba(255,255,255,0.95)', padding: '16px', borderRadius: '12px 12px 0 0' }}>
+                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                                                        <div style={{ background: 'var(--success)', padding: '4px', borderRadius: '50%' }}><Shield size={12} color="white" /></div>
+                                                        <span style={{ fontWeight: '700', color: 'var(--success)' }}>识别成功：医疗发票</span>
+                                                    </div>
+                                                    <div style={{ fontSize: '13px', color: '#333' }}>
+                                                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                                                            <span>发票金额：</span>
+                                                            <strong>¥ 800.00</strong>
+                                                        </div>
+                                                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                                                            <span>开票日期：</span>
+                                                            <span>2024-05-20</span>
+                                                        </div>
+                                                    </div>
+                                                    <button className="btn btn-primary" style={{ marginTop: '12px', padding: '10px' }}>确认并提交</button>
+                                                </div>
                                             </div>
-                                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                                                <span>开票日期：</span>
-                                                <span>2024-05-20</span>
-                                            </div>
-                                        </div>
-                                        <button className="btn btn-primary" style={{ marginTop: '12px', padding: '10px' }}>确认并提交</button>
+                                        )}
                                     </div>
+                                    <p style={{ fontSize: '12px', color: '#94a3b8', textAlign: 'center', marginTop: '16px' }}>
+                                        支持 JPG / PNG / PDF，AI 自动校验合规性
+                                    </p>
                                 </div>
-                            )}
-                        </div>
-                        <p style={{ fontSize: '12px', color: '#94a3b8', textAlign: 'center', marginTop: '16px' }}>
-                            支持 JPG / PNG / PDF，AI 自动校验合规性
-                        </p>
-                    </div>
-                </div>
-            )
-        }
+                            </div>
+                        )
+                    }
                 </div >
             );
         }
