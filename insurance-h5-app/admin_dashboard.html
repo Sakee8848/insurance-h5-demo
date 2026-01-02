@@ -389,14 +389,23 @@
                         <div className="header">
                             <div>
                                 <h1 style={{ margin: 0, fontSize: '24px' }}>
-                                    {activeNav === 'dashboard' ? '全域风险监控中心' : (activeNav === 'audit' ? '全链路安全审计日志' : '智能风险分析报告')}
+                                    {activeNav === 'dashboard' && '全域风险监控中心'}
+                                    {activeNav === 'audit' && '全链路安全审计日志'}
+                                    {activeNav === 'reports' && '智能风险分析报告'}
+                                    {activeNav === 'database' && '企业级知识库管理 (RAG数据源)'}
                                 </h1>
-                                <span className="breadcrumb">最后更新: 2025-12-31 23:30 | 数据来源: 41个区域公司实时同步</span>
+                                <span className="breadcrumb">最后更新: {new Date().toISOString().split('T')[0]} 23:30 | 数据来源: 41个区域公司实时同步</span>
                             </div>
                             <div style={{ display: 'flex', gap: '12px' }}>
-                                <button className="card" onClick={handleExport} style={{ padding: '8px 16px', background: 'var(--primary)', color: 'white', border: 'none', cursor: 'pointer', transition: 'transform 0.1s' }} onMouseDown={(e) => e.target.style.transform = 'scale(0.95)'} onMouseUp={(e) => e.target.style.transform = 'scale(1)'}>
-                                    {activeNav === 'reports' ? '生成新报告' : '导出监管报表'}
-                                </button>
+                                {activeNav === 'database' ? (
+                                    <button className="card" onClick={handleFileUpload} style={{ padding: '8px 16px', background: 'var(--primary)', color: 'white', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                        <UploadIcon /> 上传新文件
+                                    </button>
+                                ) : (
+                                    <button className="card" onClick={handleExport} style={{ padding: '8px 16px', background: 'var(--primary)', color: 'white', border: 'none', cursor: 'pointer', transition: 'transform 0.1s' }} onMouseDown={(e) => e.target.style.transform = 'scale(0.95)'} onMouseUp={(e) => e.target.style.transform = 'scale(1)'}>
+                                        {activeNav === 'reports' ? '生成新报告' : '导出监管报表'}
+                                    </button>
+                                )}
                             </div>
                         </div>
 
