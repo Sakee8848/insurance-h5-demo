@@ -483,7 +483,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {auditLogs.map(log => (
+                                            {dataLogs.slice(0, 5).map(log => (
                                                 <tr key={log.id}>
                                                     <td style={{ fontFamily: 'monospace' }}>{log.time}</td>
                                                     <td>{log.user}</td>
@@ -518,9 +518,9 @@
                                         <tr><th style={{ width: '60px' }}>ID</th><th>时间</th><th>用户</th><th>角色</th><th>操作</th><th>对象</th><th>Risk Score</th></tr>
                                     </thead>
                                     <tbody>
-                                        {[...auditLogs, ...auditLogs, ...auditLogs].map((log, idx) => (
-                                            <tr key={idx}>
-                                                <td style={{ fontFamily: 'monospace', color: '#64748b' }}>#{log.id - idx}</td>
+                                        {dataLogs.map((log, idx) => (
+                                            <tr key={log.id}>
+                                                <td style={{ fontFamily: 'monospace', color: '#64748b' }}>#{log.id}</td>
                                                 <td>2024-01-02 {log.time}</td>
                                                 <td>{log.user.split(' ')[0]}</td>
                                                 <td><span className="badge" style={{ background: '#f1f5f9' }}>管理员</span></td>
@@ -535,6 +535,61 @@
                                         ))}
                                     </tbody>
                                 </table>
+                            </div>
+                        )}
+
+                        {/* CONTENT: KNOWLEDGE BASE */}
+                        {activeNav === 'database' && (
+                            <div className="card">
+                                <div className="card-header">
+                                    <div className="card-title">企业知识库文件列表 (AI 向量化索引中)</div>
+                                    <div style={{ color: 'var(--text-secondary)', fontSize: '13px' }}>
+                                        共 {files.length} 个文件 · 占用 128 MB
+                                    </div>
+                                </div>
+                                <table style={{ width: '100%' }}>
+                                    <thead>
+                                        <tr>
+                                            <th style={{ width: '40px' }}></th>
+                                            <th>文件名称</th>
+                                            <th>类型</th>
+                                            <th>大小</th>
+                                            <th>上传时间</th>
+                                            <th>上传者</th>
+                                            <th>状态</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {files.map(file => (
+                                            <tr key={file.id}>
+                                                <td>
+                                                    {file.type === 'video' ? <VideoIcon /> : <FileIcon />}
+                                                </td>
+                                                <td style={{ fontWeight: '500' }}>{file.name}</td>
+                                                <td>
+                                                    <span style={{ textTransform: 'uppercase', fontSize: '12px', color: 'var(--text-secondary)' }}>{file.type}</span>
+                                                </td>
+                                                <td style={{ fontFamily: 'monospace' }}>{file.size}</td>
+                                                <td>{file.uploadTime}</td>
+                                                <td>{file.uploader}</td>
+                                                <td>
+                                                    <span className="badge badge-success">已索引</span>
+                                                </td>
+                                                <td>
+                                                    <button onClick={() => handleDeleteFile(file.id, file.name)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--danger)', display: 'flex', alignItems: 'center', padding: '4px' }}>
+                                                        <TrashIcon />
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                                {files.length === 0 && (
+                                    <div style={{ padding: '40px', textAlign: 'center', color: 'var(--text-muted)' }}>
+                                        暂无文件，请点击右上角上传
+                                    </div>
+                                )}
                             </div>
                         )}
 
